@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+
+<head lang="en-us">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+
+<style>
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.sign-up-container {
+	width: 40%;
+	margin: 5% auto;
+	padding: 1em;
+	border: 1px solid black;
+	border-radius: 1em;
+	font-size: 1.5em;
+
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+}
+input {
+	width: 80%;
+	height: 35px;
+	padding: 5px;
+	padding-left: 10px;
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+.btn {
+	padding: 0.5em 1em;
+	background: firebrick;
+	border-radius: 1em;
+	color: #FFF;
+	cursor: pointer;
+	font-family: sans-serif;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div class="sign-up-container">
+	<p>Enter your email address and password below</p>
+	<input type="email" id="email" placeholder="email...">
+	<input type="password" id="password" placeholder="password...">
+	<div class="btn" id="login_submit">Login!</div>
+	<p>Need to create an account? <a href="signup.html">Sign Up!</a></p>
+	<p>Forgot your password? <a href="reset_password.html">Reset it!</a></p>
+</div>
+
+</body>
+
+<script>
+
+var config = {
+	apiKey: "AIzaSyBoMGE2tup_IQsm5aHnfdlAh4HMLD3J_Yw",
+	authDomain: "login-test-25879.firebaseapp.com",
+	databaseURL: "https://login-test-25879.firebaseio.com",
+	projectId: "login-test-25879",
+	storageBucket: "login-test-25879.appspot.com",
+	messagingSenderId: "127721403757"
+};
+
+
+firebase.initializeApp(config);
+
+var db = firebase.database();
+
+$('#login_submit').click(signIn);
+
+function signIn() {
+	if(firebase.auth().currentUser) {
+		//	If user is signed in, sign them out
+		firebase.auth().signOut();
+	} else {
+		var email = $('#email').val().trim();
+		var password = $('#password').val().trim();
+		
+		//	password validations would go here
+	
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+			//	Handle errors here
+			var errorCode = error.code;
+			var errorMessage = error.message;
+				
+			if(errorCode === 'auth/wrong-password') {
+				alert('Wrong password');
+			} else {
+				alert(errorMessage);
+			}
+			console.log(error);
+		});
+			
+	}
+}
+firebase.auth().onAuthStateChanged(function(user) {
+		
+	if(user) {
+		window.location.href='index.html';		
+	} else {
+		//	User is signed out
+		console.log('User is signed out');
+	}
+});
+
+</script>
+
+</html>

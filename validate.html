@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head lang="en-us">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+
+<style>
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.sign-up-container {
+	width: 60%;
+	margin: 5% auto;
+	padding: 1em;
+	border: 1px solid black;
+	border-radius: 1em;
+	font-size: 1.5em;
+
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+}
+input {
+	width: 80%;
+	height: 35px;
+	padding: 5px;
+	padding-left: 10px;
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+.btn {
+	padding: 0.5em 1em;
+	background: firebrick;
+	border-radius: 1em;
+	color: #FFF;
+	cursor: pointer;
+	font-family: sans-serif;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div class="sign-up-container">
+	<h2>Almost done!</h2>
+	<p>A validation email has been sent to your inbox.</p>
+	<p>Once you've validated your account, you can <a href="index.html">login!</a></p>
+	<p>If you do not see an email validation after a few minutes,</p>
+	<p>click <a href="send_validation.html">here</a> to send a new one.</p>
+</div>
+
+</body>
+
+<script>
+
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyBoMGE2tup_IQsm5aHnfdlAh4HMLD3J_Yw",
+	authDomain: "login-test-25879.firebaseapp.com",
+	databaseURL: "https://login-test-25879.firebaseio.com",
+	projectId: "login-test-25879",
+	storageBucket: "login-test-25879.appspot.com",
+	messagingSenderId: "127721403757"
+};
+
+firebase.initializeApp(config);
+
+var db = firebase.database();
+
+
+function sendEmailVerification() {
+	firebase.auth().currentUser.sendEmailVerification().then(function() {
+		
+	});
+}
+
+// sendEmailVerification();
+
+
+
+</script>
+
+</html>
